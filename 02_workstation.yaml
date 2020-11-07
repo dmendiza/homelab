@@ -1,8 +1,8 @@
 ---
-- hosts: test
+- hosts: workers
   remote_user: douglas
   roles:
     - git
     - workstation
     - podman_host
-    - image_builder
+    - buildah

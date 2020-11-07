@@ -2,15 +2,20 @@
 - name: install podman
   become: yes
   package:
-    name: "{{ item }}"
+    name: podman
     state: latest
-  loop:
-    - podman
-    - cockpit-podman
 
-- name: start podman socket (for cockpit)
+- name: add podman to cockpit
+  when: ansible_distribution == "Fedora"
   become: yes
-  service:
-    name: io.podman.socket
-    state: started
-    enabled: yes
+  block:
+    - name: install cockpit plugin
+      package:
+        name: cockpit-podman
+        state: latest
+
+    - name: start podman socket (for cockpit)
+      service:
+        name: io.podman.socket
+        state: started
+        enabled: yes

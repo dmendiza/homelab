@@ -8,11 +8,22 @@
     mode: 0600
   notify: restart sshd
 
-- name: install fail2ban
-  package:
-    name: fail2ban-firewalld
-    state: latest
-  notify: restart fail2ban
+- name: add podman repo on Debian hosts
+  when: ansible_distribution == "Debian"
+  block:
+    - name: add podman repo key
+      apt_key:
+        url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/Release.key
+        state: present
+
+    - name: add podman repo
+      copy:
+        content: "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /"
+        dest: /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+
+    - name: update repo cache
+      apt:
+        update_cache: yes
 
 - name: install tuned
   package:
@@ -25,5 +36,4 @@
     name: "{{ item }}"
     enabled: yes
   loop:
-    - fail2ban
     - tuned

@@ -1,0 +1,14 @@
+---
+- name: install fail2ban
+  package:
+    name: fail2ban-firewalld
+    state: latest
+  notify: restart fail2ban
+
+- name: enable services
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  loop:
+    - fail2ban
+
