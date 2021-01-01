@@ -16,6 +16,6 @@
 
     - name: start podman socket (for cockpit)
       service:
-        name: io.podman.socket
+        name: podman.socket
         state: started
         enabled: yes

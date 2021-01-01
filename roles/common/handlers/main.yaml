@@ -4,3 +4,6 @@
 
 - name: restart tuned
   service: name=tuned state=restarted
+
+- name: restart pmlogger
+  service: name=pmlogger state=restarted

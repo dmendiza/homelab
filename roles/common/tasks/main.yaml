@@ -37,3 +37,9 @@
     enabled: yes
   loop:
     - tuned
+
+- name: install cockpit-pcp
+  package:
+    name: cockpit-pcp
+    state: latest
+  notify: restart pmlogger
