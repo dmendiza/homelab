@@ -38,8 +38,11 @@
   loop:
     - tuned
 
-- name: install cockpit-pcp
+- name: install cockpit packages
   package:
-    name: cockpit-pcp
+    name: "{{ item }}"
     state: latest
   notify: restart pmlogger
+  loop:
+    - cockpit-dashboard
+    - cockpit-pcp
