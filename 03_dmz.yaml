@@ -3,5 +3,12 @@
   become: yes
   roles:
     - common
+    - dmz
     - podman_host
     - cert_manager
+  tasks:
+    - name: stop and disable cockpit
+      service:
+        name: cockpit
+        enabled: no
+        state: stopped
