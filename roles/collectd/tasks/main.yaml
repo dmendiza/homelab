@@ -1,0 +1,22 @@
+---
+- name: install latest collectd package
+  become: yes
+  package:
+    name: collectd
+    state: latest
+
+- name: write collectd config
+  become: yes
+  copy:
+    src: roles/collectd/files/{{ item }}
+    dest: /etc/collectd.d/{{ item }}
+  loop:
+    - write_graphite.conf
+    - cpu.conf
+
+- name: enable and restart collectd
+  become: yes
+  service:
+    name: collectd
+    enabled: yes
+    state: restarted
