@@ -44,5 +44,4 @@
     state: latest
   notify: restart pmlogger
   loop:
-    - cockpit-dashboard
     - cockpit-pcp
