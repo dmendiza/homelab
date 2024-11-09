@@ -1,5 +1,0 @@
----
-- hosts: haineko
-  remote_user: douglas
-  roles:
-    - docker_host
